@@ -1,13 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap");
 .App {
   text-align: center;
-  background-color: #1e2a47;
+  background-color: #102146;
   color: #ffffff;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-family: Arial, sans-serif;
+  font-family: "Space Mono", monospace;
+  padding: 20px;
 }
 
 .App-header {
@@ -15,13 +17,38 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
+  padding: 10px;
+  background-color: #153153;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 600px;  /* Increased from 400px */
+}
+
+.head{
+  display: flex;
+  justify-content: right;
+
+}
+
+.searchIcon {
+  width: 30px;
+  height: 30px;
+  filter: grayscale(50%);
+  margin-right: 10px;
 }
 
 input {
-  padding: 10px;
+  padding: 10px 20px;
   border-radius: 5px 0 0 5px;
   border: none;
   outline: none;
+  font-size: 16px;
+  width: calc(100% - 120px);  /* Adjust based on button width */
+  max-width: none;
+  box-sizing: border-box;
+  background-color: #0b2e5a;
+  color: white;
+  font-family: "Space Mono", monospace;
 }
 
 button.search {
@@ -32,6 +59,8 @@ button.search {
   color: #fff;
   font-size: 16px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100px;  /* Fixed width for the button */
 }
 
 button.search:hover {
@@ -39,12 +68,20 @@ button.search:hover {
 }
 
 .profileCard {
-  background-color: #1f2d48;
-  padding: 20px;
+  background-color: #1d3664;
+  padding: 30px;
   border-radius: 10px;
-  width: 90%;
-  max-width: 400px;
+  width: 100%;
+  max-width: 600px;  /* Increased from 400px */
   text-align: left;
+  box-sizing: border-box;
+}
+
+.profileCard img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 20px;
 }
 
 .profileCard img {
@@ -96,4 +133,57 @@ button.search:hover {
   display: flex;
   margin: 0px;
   justify-content: space-between;
+}
+
+
+.profileInfo p,
+.extrnalDetail p,
+.extrnalDetail a {
+  color: #8c8c8c;
+}
+
+.externalLogo {
+  width: 20px !important;
+  height: 20px !important;
+  object-fit: contain;
+  margin-right: 10px;
+  vertical-align: middle;
+  filter: brightness(0) saturate(100%) invert(55%) sepia(0%) saturate(0%) hue-rotate(143deg) brightness(93%) contrast(92%);
+}
+
+.extrnalDetail {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.extrnalLink1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.extrnalDetail p {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+.extrnalDetail a:hover {
+  text-decoration: underline;
+  color: #6e6e6e;
+}
+
+@media (max-width: 650px) {
+  .App-header,
+  .profileCard {
+    width: 90%;
+  }
+
+  .extrnalDetail {
+    flex-direction: column;
+  }
 }
