@@ -1,38 +1,41 @@
 import React, { useState } from "react";
 import "./App.css";
+import { useQuery } from '@tanstack/react-query';
 
 function App() {
   const [username, setUsername] = useState("");
-  const [userData, setUserData] = useState(null);
+  const [isDarkTheme, setIsDarkTheme] = useState(true);
 
-  const search = async () => {
-    if (username) {
-      try {
-        const response = await fetch(
-          "https://api.github.com/users/" + username
-        );
-        const data = await response.json();
-        if (data.message !== "Not Found") {
-          setUserData(data);
-        } else {
-          setUserData(null);
-          console.log("User not found.");
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    } else {
-      console.log("Enter User Name");
-    }
-  };
+  const { data: userData, refetch, isLoading, isError } = useQuery({
+    queryKey: ['githubUser', username],
+    queryFn: () => getProfileData(username),
+    enabled: false,
+  });
 
   const handleInputChange = (event) => {
     setUsername(event.target.value);
   };
 
+  const search = () => {
+    if (username) {
+      refetch();
+    } else {
+      console.log("Enter User Name");
+    }
+  };
+
+  const toggleTheme = () => {
+    setIsDarkTheme(!isDarkTheme);
+  };
+
   return (
-    <div className="App">
-      <h1 className="head">Dev Finder</h1>
+    <div className={`App ${isDarkTheme ? 'dark-theme' : 'light-theme'}`}>
+      <div className="header-container">
+        <h1 className="head">Dev Finder</h1>
+        <button onClick={toggleTheme} className="theme-toggle">
+          {isDarkTheme ? 'Dark' : 'Light'}
+        </button>
+      </div>
       <header className="App-header">
         <img
           src="https://purepng.com/public/uploads/large/search-icon-lob.png"
@@ -48,7 +51,9 @@ function App() {
           Search
         </button>
       </header>
-      {userData && (
+      {isLoading && <p>Loading...</p>}
+      {isError && <p>Error fetching user data. Please try again.</p>}
+      {userData && !isLoading && !isError && (
         <div className="profileCard">
           <img src={userData.avatar_url} alt="avatar" />
           <div className="profileInfo">
@@ -115,7 +120,7 @@ function App() {
                     rel="noopener noreferrer"
                   >
                     {userData.twitter_username ||
-                      "Twitter Username not available"}
+                      "Twitter not available"}
                   </a>
                 </p>
                 <p>
@@ -140,5 +145,15 @@ function App() {
     </div>
   );
 }
+
+// Separate function to fetch profile data
+const getProfileData = async (username) => {
+  const response = await fetch(`https://api.github.com/users/${username}`);
+  const data = await response.json();
+  if (data.message === "Not Found") {
+    throw new Error("User not found");
+  }
+  return data;
+};
 
 export default App;

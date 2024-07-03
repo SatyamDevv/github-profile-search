@@ -1,8 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap");
+
 .App {
   text-align: center;
-  background-color: #102146;
-  color: #ffffff;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -10,6 +9,47 @@
   justify-content: center;
   font-family: "Space Mono", monospace;
   padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.dark-theme {
+  background-color: #102146;
+  color: #ffffff;
+}
+
+.light-theme {
+  background-color: #f6f8ff;
+  color: #4b6a9b;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 20px;
+}
+
+.head {
+  margin: 0;
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  font-family: "Space Mono", monospace;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.dark-theme .theme-toggle {
+  color: #ffffff;
+}
+
+.light-theme .theme-toggle {
+  color: #4b6a9b;
 }
 
 .App-header {
@@ -18,23 +58,32 @@
   align-items: center;
   margin-bottom: 20px;
   padding: 10px;
-  background-color: #153153;
   border-radius: 10px;
   width: 100%;
-  max-width: 600px;  /* Increased from 400px */
+  max-width: 600px;
 }
 
-.head{
-  display: flex;
-  justify-content: right;
+.dark-theme .App-header {
+  background-color: #153153;
+}
 
+.light-theme .App-header {
+  background-color: #fefefe;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .searchIcon {
   width: 30px;
   height: 30px;
-  filter: grayscale(50%);
   margin-right: 10px;
+}
+
+.dark-theme .searchIcon {
+  filter: grayscale(50%) brightness(150%);
+}
+
+.light-theme .searchIcon {
+  filter: grayscale(50%);
 }
 
 input {
@@ -43,12 +92,20 @@ input {
   border: none;
   outline: none;
   font-size: 16px;
-  width: calc(100% - 120px);  /* Adjust based on button width */
+  width: calc(100% - 120px);
   max-width: none;
   box-sizing: border-box;
+  font-family: "Space Mono", monospace;
+}
+
+.dark-theme input {
   background-color: #0b2e5a;
   color: white;
-  font-family: "Space Mono", monospace;
+}
+
+.light-theme input {
+  background-color: #fefefe;
+  color: #4b6a9b;
 }
 
 button.search {
@@ -60,7 +117,7 @@ button.search {
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  width: 100px;  /* Fixed width for the button */
+  width: 100px;
 }
 
 button.search:hover {
@@ -68,13 +125,21 @@ button.search:hover {
 }
 
 .profileCard {
-  background-color: #1d3664;
   padding: 30px;
   border-radius: 10px;
   width: 100%;
-  max-width: 600px;  /* Increased from 400px */
+  max-width: 600px;
   text-align: left;
   box-sizing: border-box;
+}
+
+.dark-theme .profileCard {
+  background-color: #1d3664;
+}
+
+.light-theme .profileCard {
+  background-color: #fefefe;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .profileCard img {
@@ -82,13 +147,6 @@ button.search:hover {
   height: 100px;
   border-radius: 50%;
   margin-bottom: 20px;
-}
-
-.profileCard img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  margin-bottom: 10px;
 }
 
 .profileInfo {
@@ -115,18 +173,20 @@ button.search:hover {
   display: flex;
   justify-content: space-around;
   margin: 10px 0;
-  background-color: rgb(28, 30, 43);
   padding: 10px;
   border-radius: 10px;
 }
 
-.stats div {
-  text-align: center;
+.dark-theme .stats {
+  background-color: rgb(28, 30, 43);
 }
 
-.profileInfo div {
-  display: flex;
-  margin: 5px 0;
+.light-theme .stats {
+  background-color: #f6f8ff;
+}
+
+.stats div {
+  text-align: center;
 }
 
 .userdate {
@@ -135,11 +195,16 @@ button.search:hover {
   justify-content: space-between;
 }
 
-
-.profileInfo p,
-.extrnalDetail p,
-.extrnalDetail a {
+.dark-theme .profileInfo p,
+.dark-theme .extrnalDetail p,
+.dark-theme .extrnalDetail a {
   color: #8c8c8c;
+}
+
+.light-theme .profileInfo p,
+.light-theme .extrnalDetail p,
+.light-theme .extrnalDetail a {
+  color: #4b6a9b;
 }
 
 .externalLogo {
@@ -148,7 +213,14 @@ button.search:hover {
   object-fit: contain;
   margin-right: 10px;
   vertical-align: middle;
+}
+
+.dark-theme .externalLogo {
   filter: brightness(0) saturate(100%) invert(55%) sepia(0%) saturate(0%) hue-rotate(143deg) brightness(93%) contrast(92%);
+}
+
+.light-theme .externalLogo {
+  filter: brightness(0) saturate(100%) invert(40%) sepia(10%) saturate(1164%) hue-rotate(182deg) brightness(90%) contrast(87%);
 }
 
 .extrnalDetail {
@@ -174,12 +246,20 @@ button.search:hover {
 
 .extrnalDetail a:hover {
   text-decoration: underline;
+}
+
+.dark-theme .extrnalDetail a:hover {
   color: #6e6e6e;
+}
+
+.light-theme .extrnalDetail a:hover {
+  color: #2b4876;
 }
 
 @media (max-width: 650px) {
   .App-header,
-  .profileCard {
+  .profileCard,
+  .header-container {
     width: 90%;
   }
 
